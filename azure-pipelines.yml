@@ -25,6 +25,9 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+    createAppPackage: true
+    msbuildLocationOption: version
+    msbuildVersionOption: version
 
 - task: AndroidSigning@3
   inputs:
