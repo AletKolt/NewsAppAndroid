@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'VS2017-Win2016'
 
 variables:
   buildConfiguration: 'Release'
@@ -25,3 +25,16 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+    createAppPackage: true
+    msbuildLocationOption: version
+    msbuildVersionOption: version
+
+- task: AndroidSigning@3
+  inputs:
+    apksign: false
+    zipalign: false
+    apkFiles: '$(outputDirectory)/*.apk'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(outputDirectory)'
